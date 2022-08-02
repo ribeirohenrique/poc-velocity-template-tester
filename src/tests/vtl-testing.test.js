@@ -2,19 +2,21 @@ const mappingTemplate = require('api-gateway-mapping-template');
 const fs = require("fs");
 
 describe("Testando se recebe os parametros de queryStrings", () => {
-
     const vtl = fs.readFileSync('./src/vtls/exemplo-5.vtl', {encoding: 'utf8'});
     const payload = fs.readFileSync('./src/json/httpApiProxy.json', {encoding: 'utf8'});
 
     const params = {
         "querystring": {
             "firstParam": "developer",
-            "secondParam": 1,
+            "secondParam": 22,
             "thirdParam": false
         },
         "header": {
             "Accept-Language": "pt-BR",
             "DNT" : true
+        },
+        "path": {
+            "examplePath": "http://petstore.execute-api.sa-east-1.amazonaws.com/petstore/pets"
         }
     }
 
@@ -28,7 +30,6 @@ describe("Testando se recebe os parametros de queryStrings", () => {
     const result = JSON.parse(mappingTemplate({template: vtl, payload: payload, params: params, context: context}));
 
     test("testing parameters type", () => {
-
         const result = JSON.parse(mappingTemplate({template: vtl, payload: payload, params: params, context: context}));
 
         expect(typeof result.queryParametersString).toBe("string");
@@ -36,8 +37,8 @@ describe("Testando se recebe os parametros de queryStrings", () => {
         expect(typeof result.queryParametersBoolean).toBe("boolean");
 
         expect(typeof result.headerParametersString).toBe("string");
+        expect(typeof result.headerParametersBoolean).toBe("boolean");
 
-        expect(typeof result.queryParametersBoolean).toBe("boolean");
         expect(typeof result.queryParametersString).toBe("string");
         expect(typeof result.queryParametersNumber).toBe("number");
         expect(typeof result.queryParametersBoolean).toBe("boolean");

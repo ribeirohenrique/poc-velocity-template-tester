@@ -2,19 +2,21 @@
 "queryParametersString": "$input.params('firstParam')",
 "queryParametersNumber": $input.params('secondParam'),
 "queryParametersBoolean": $input.params('thirdParam'),
-"headerParameters": "$input.params()",
-"headerParametersString": "$input.params('header')",
+"headerParametersString": "$input.params('Accept-Language')",
+"headerParametersBoolean": "$input.params('DNT')",
+"pathParameters": "$input.params('examplePath')",
+"allInputParameters": "$input.params()",
 "accountId": "$context.accountId",
 "resource_path": "$context.resource_path",
 "http_method": "$context.httpMethod",
+#if($context.statusCode == "200")
+"returnMessage": "Created",
+#else
+"returnMessage": "Error",
+#end
 "testEscapedQuote": "$util.escapeJavaScript("$input.path('$').requestContext.testScapeQuote").replaceAll("\\'","'")",
 "base64Decode": "$util.base64Decode("$input.path('$').requestContext.base64Decode")",
 "base64Encode": "$util.base64Encode("$input.path('$').requestContext.base64Encode")",
 "urlEncodeExample": "$util.urlEncode("$input.path('$').requestContext.urlEncodeExample")",
-"urlDecodeExample": "$util.urlDecode("$input.path('$').requestContext.urlDecodeExample")",
-#if($context.statusCode == "200")
-"returnMessage": "Created"
-#else
-"returnMessage": "Error"
-#end
+"urlDecodeExample": "$util.urlDecode("$input.path('$').requestContext.urlDecodeExample")"
 }

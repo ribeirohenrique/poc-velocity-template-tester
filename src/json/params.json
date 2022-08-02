@@ -1,0 +1,18 @@
+{
+  "account_id" : "$context.identity.accountId",
+  "api_id" : "$context.apiId",
+  "request_id" : "$context.requestId",
+  "resource_id" : "$context.resourceId",
+  "resource_path" : "$context.resourcePath",
+  "stage" : "$context.stage",
+  "http_method" : "$context.httpMethod",
+  "domain_name": "$context.domainName",
+  "source_ip" : "$context.identity.sourceIp",
+  "user-agent" : "$context.identity.userAgent",
+  "api_key" : "$context.identity.apiKey",
+  "caller" : "$context.identity.caller",
+  "user" : "$context.identity.user",
+  "user_arn" : "$context.identity.userArn",
+  "not_after": "$context.identity.clientCert.validity.notAfter",
+  "not_before": "$context.identity.clientCert.validity.notBefore"
+}

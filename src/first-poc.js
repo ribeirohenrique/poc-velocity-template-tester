@@ -1,25 +1,32 @@
 const mappingTemplate = require('api-gateway-mapping-template');
 const fs = require("fs");
 
-const vtl = fs.readFileSync('./src/vtls/exemplo-5.vtl', { encoding: 'utf8' });
-const payload = fs.readFileSync('./src/json/httpApiProxy.json', { encoding: 'utf8' });
+const vtl = fs.readFileSync('./src/vtls/exemplo-5.vtl', {encoding: 'utf8'});
+const payload = fs.readFileSync('./src/json/httpApiProxy.json', {encoding: 'utf8'});
 
 //o context será passado desta maneira
-const context = {
-    "accountId": "123456789012"
-};
-
 const params = {
     "querystring": {
-        "firstName": "Henrique",
-        "lastName": "Mendes"
+        "firstParam": "developer",
+        "secondParam": 1,
+        "thirdParam": false
+    },
+    "header": {
+        "Accept-Language": "pt-BR",
+        "DNT" : true
     }
 }
 
+const context = {
+    "accountId": "123456789012",
+    "resource_path": "/pets",
+    "httpMethod": "GET"
+};
+
 const result = mappingTemplate({template: vtl, payload: payload, context: context, params: params});
-console.log(result)
+const jsonReturn = JSON.parse(result);
 
-//testar headers da requisição
-//query parameters
+console.log(jsonReturn.testingString);
 
-//comparar a saida usando jest
+console.log(jsonReturn)
+

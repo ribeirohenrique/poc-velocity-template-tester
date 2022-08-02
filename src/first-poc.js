@@ -6,12 +6,17 @@ const payload = fs.readFileSync('./src/json/httpApiProxy.json', { encoding: 'utf
 
 //o context será passado desta maneira
 const context = {
-    "accountId": "123456789012",
+    "accountId": "123456789012"
 };
 
-//const context = {}
+const params = {
+    "querystring": {
+        "firstName": "Henrique",
+        "lastName": "Mendes"
+    }
+}
 
-const result = mappingTemplate({template: vtl, payload: payload, context: context});
+const result = mappingTemplate({template: vtl, payload: payload, context: context, params: params});
 console.log(result)
 
 //testar headers da requisição

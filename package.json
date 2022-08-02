@@ -4,8 +4,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "vai": "node src/first-poc.js",
-    "vai2": "node src/second-poc.js"
+    "vai": "node src/first-poc.js"
   },
   "keywords": [],
   "author": "",

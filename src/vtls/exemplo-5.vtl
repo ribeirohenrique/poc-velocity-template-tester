@@ -1,11 +1,13 @@
-#set ($errorMessageObj = $utils.parseJson($input.path('$').requestContext.parseJsonExample))
+#set ($errorMessageObj1 = $input.path('$').requestContext.parseJsonExample)
+#set ($errorMessageObj2 = $input.path('$').requestContext.simpleJsonExample)
+
 {
+"queryParameters": "$input.params('firstName')",
 "accountId": "$context.accountId",
-"headers": "$input.path('$').headers",
 "testEscapedQuote": "$util.escapeJavaScript("$input.path('$').requestContext.testScapeQuote").replaceAll("\\'","'")",
 "base64Decode": "$util.base64Decode("$input.path('$').requestContext.base64Decode")",
 "base64Encode": "$util.base64Encode("$input.path('$').requestContext.base64Encode")",
 "urlEncodeExample": "$util.urlEncode("$input.path('$').requestContext.urlEncodeExample")",
 "urlDecodeExample": "$util.urlDecode("$input.path('$').requestContext.urlDecodeExample")",
-"parseJsonExample": "$errorMessageObj."
+"JsonField": $errorMessageObj1,
 }

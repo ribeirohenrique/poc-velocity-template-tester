@@ -1,0 +1,9 @@
+#set($context = $input.path('$')){
+"accountId": "$context.requestContext.accountId",
+#if($context.requestContext.apiId == "api-id")"$context.requestContext.apiId" = "123456789" #else "apiId": "$context.requestContext.apiId", #end
+"headers": "$context.headers",
+"queryParams": "$context.queryStringParameters",
+"serialNumber": "$context.requestContext.authentication.clientCert.serialNumber",
+"validityNotBefore": "$context.requestContext.authentication.clientCert.validity.notBefore",
+"validityNotAfter": "$context.requestContext.authentication.clientCert.validity.notAfter"
+}

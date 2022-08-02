@@ -1,0 +1,37 @@
+#set($now = $util.dynamodb.toDynamoDB($util.time.nowISO8601()))
+
+#set($todos = [])
+#set($todoIds = [])
+
+#foreach($item in $context.args.items)
+    #if($item.priority <= 2)
+        #set($important = true)
+    #else
+        #set($important = false)
+    #end
+
+    #set($newId = $util.autoId())
+    $util.qr($todoIds.add($newId))
+
+    $util.qr(
+        $todos.add({
+            "user_id": $util.dynamodb.toDynamoDB($context.identity.sub),
+            "todo_id": $util.dynamodb.toDynamoDB($newId),
+            "created_at": $now,
+            "updated_at": $now,
+            "important": $util.dynamodb.toDynamoDB($important),
+            "name": $util.dynamodb.toDynamoDB($item.name),
+            "priority": $util.dynamodb.toDynamoDB($item.priority)
+        })
+        )
+#end
+
+#set($ctx.stash.todoIds = $todoIds)
+
+{
+    "version": "2018-05-29",
+    "operation": "BatchPutItem",
+    "tables": {
+        "todos": $util.toJson($todos)
+    }
+}

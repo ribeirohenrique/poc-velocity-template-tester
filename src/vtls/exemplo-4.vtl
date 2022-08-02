@@ -1,0 +1,8 @@
+## Set the variable inputRoot to the root JSON document
+#set($inputRoot = $input.path('$')){
+## Assign output properties to input properties
+    "id": "$inputRoot.playerId",
+    "alias": "$inputRoot.alias",
+    "name": "$inputRoot.displayName",
+    "photo": "$inputRoot.profilePhotoUrl"
+}

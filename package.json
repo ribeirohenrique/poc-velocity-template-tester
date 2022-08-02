@@ -1,0 +1,19 @@
+{
+  "name": "poc-velocity-template-tester",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "vai": "node src/first-poc.js",
+    "vai2": "node src/second-poc.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "api-gateway-mapping-template": "^0.0.8",
+    "cross-fetch": "^3.1.5",
+    "node-fetch": "^3.2.9"
+  }
+}

@@ -3,16 +3,21 @@
 "queryParametersNumber": $input.params('secondParam'),
 "queryParametersBoolean": $input.params('thirdParam'),
 "headerParametersString": "$input.params('Accept-Language')",
-"headerParametersBoolean": "$input.params('DNT')",
+"headerParametersBoolean": $input.params('DNT'),
 "pathParameters": "$input.params('examplePath')",
 "allInputParameters": "$input.params()",
 "accountId": "$context.accountId",
 "resource_path": "$context.resource_path",
 "http_method": "$context.httpMethod",
-#if($context.statusCode == "200")
-"returnMessage": "Created",
+#if($context.stage == "Beta")
+"stage": "This API is in Beta Development",
 #else
-"returnMessage": "Error",
+"stage": "This API is NOT Beta Development",
+#end
+#foreach($item in [0, 1, 2, 3, 4])
+"forEachCount": $foreach.count,
+"forEachIndex": $foreach.index,
+"forEachHasNext": $foreach.hasNext,
 #end
 "testEscapedQuote": "$util.escapeJavaScript("$input.path('$').requestContext.testScapeQuote").replaceAll("\\'","'")",
 "base64Decode": "$util.base64Decode("$input.path('$').requestContext.base64Decode")",

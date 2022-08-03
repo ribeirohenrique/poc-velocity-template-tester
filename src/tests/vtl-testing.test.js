@@ -1,14 +1,14 @@
 const mappingTemplate = require('api-gateway-mapping-template');
 const fs = require("fs");
 
-describe("Testando se recebe os parametros de queryStrings", () => {
+describe("Testando os parametros de input", () => {
     const vtl = fs.readFileSync('./src/vtls/exemplo-5.vtl', {encoding: 'utf8'});
     const payload = fs.readFileSync('./src/json/httpApiProxy.json', {encoding: 'utf8'});
 
     const params = {
         "querystring": {
             "firstParam": "developer",
-            "secondParam": 22,
+            "secondParam": 2022,
             "thirdParam": false
         },
         "header": {
@@ -24,32 +24,37 @@ describe("Testando se recebe os parametros de queryStrings", () => {
         "accountId": "123456789012",
         "resource_path": "/pets",
         "httpMethod": "GET",
-        "statusCode": "200"
+        "stage": "Beta"
     };
-
-    const result = JSON.parse(mappingTemplate({template: vtl, payload: payload, params: params, context: context}));
 
     test("testing parameters type", () => {
         const result = JSON.parse(mappingTemplate({template: vtl, payload: payload, params: params, context: context}));
 
+        //Testing Query Parameters
         expect(typeof result.queryParametersString).toBe("string");
         expect(typeof result.queryParametersNumber).toBe("number");
         expect(typeof result.queryParametersBoolean).toBe("boolean");
 
+        //Testing Header Parameters
         expect(typeof result.headerParametersString).toBe("string");
         expect(typeof result.headerParametersBoolean).toBe("boolean");
 
-        expect(typeof result.queryParametersString).toBe("string");
-        expect(typeof result.queryParametersNumber).toBe("number");
-        expect(typeof result.queryParametersBoolean).toBe("boolean");
-        expect(result.returnMessage).toBe("Created");
+        //Testing Path Parameters
+        expect(result.pathParameters).toContain("/");
+
+        //Testing utils to remove \\' from the String
+        expect(result.testEscapedQuote).not.toContain("\\'");
+
+        //Testing stage message by choosing stage on $context based in a condition
+        expect(result.stage).toBe("This API is in Beta Development");
     })
 
-    test("Conditions: testing the message if the status code is different", () => {
+    test("Conditions: choosing stage on $context", () => {
 
-        //foi feita uma desestruturação do context, que é uma cópia alterando apenas o campo desejado
-        const result = JSON.parse(mappingTemplate({template: vtl, payload: payload, params: params, context: {...context, "statusCode": "404"}}));
+        const result = JSON.parse(mappingTemplate({template: vtl, payload: payload, params: params, context: {...context, "stage": "Prod"}}));
 
-        expect(result.returnMessage).toBe("Error");
+        expect(result.forEachCount).toBe(5);
+        expect(result.forEachIndex).toBe(4);
+        expect(result.forEachHasNext).toBe(false);
     })
 })

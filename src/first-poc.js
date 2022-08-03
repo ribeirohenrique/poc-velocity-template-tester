@@ -7,7 +7,7 @@ const payload = fs.readFileSync('./src/json/httpApiProxy.json', {encoding: 'utf8
 const params = {
     "querystring": {
         "firstParam": "developer",
-        "secondParam": 22,
+        "secondParam": 2022,
         "thirdParam": false
     },
     "header": {
@@ -23,7 +23,7 @@ const context = {
     "accountId": "123456789012",
     "resource_path": "/pets",
     "httpMethod": "GET",
-    "statusCode": "200"
+    "stage": "Beta"
 };
 
 const result = mappingTemplate({template: vtl, payload: payload, context: context, params: params});

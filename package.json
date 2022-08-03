@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "vai": "node src/first-poc.js"
+    "start": "node src/VelocityProject.js"
   },
   "keywords": [],
   "author": "",
